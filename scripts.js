@@ -26,17 +26,13 @@ const divide = (num1, num2) => {
 const operate = (num1, num2, operator) => {
   switch (operator) {
     case "+":
-      add(num1, num2);
-      break;
+      return add(num1, num2);
     case "-":
-      subtract(num1, num2);
-      break;
+      return subtract(num1, num2);
     case "*":
-      multiply(num1, num2);
-      break;
+      return multiply(num1, num2);
     case "/":
-      divide(num1, num2);
-      break;
+      return divide(num1, num2);
   }
 };
 // ======= DOM Handling Functions =======
@@ -58,6 +54,11 @@ const handleOperator = (operator) => {
   displayOperator.textContent = operator.textContent;
   displayOperator.style.backgroundColor = "#333";
   displayOperator.style.color = "#ddd";
+};
+// Submit
+const handleSubmit = () => {
+  const result = operate(data.num1, data.num2, data.operator);
+  document.querySelector("#display-number").textContent = result;
 };
 // ======= Event Listeners =======
 // Numbers
