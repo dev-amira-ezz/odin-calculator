@@ -37,3 +37,18 @@ const operate = (num1, num2, operator) => {
       break;
   }
 };
+// ======= DOM Handling Functions =======
+const handleNumber = (number) => {
+     const display = document.querySelector("#display");
+  if (operator === "") {
+    num1 += number.textContent;
+    display.textContent = num1;
+  } else {
+    num2 += number.textContent;
+    display.textContent = num2;
+  }
+};
+// ======= Event Listeners =======
+document.querySelectorAll(".number").forEach((number) => {
+  number.addEventListener("click", () => handleNumber(number));
+});
