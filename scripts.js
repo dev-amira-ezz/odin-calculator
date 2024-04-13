@@ -68,3 +68,7 @@ document.querySelectorAll(".number").forEach((number) => {
 document.querySelectorAll(".operator").forEach((operator) => {
   operator.addEventListener("click", () => handleOperator(operator));
 });
+// Submit
+document
+  .querySelector("#submit")
+  .addEventListener("click", () => handleSubmit());
