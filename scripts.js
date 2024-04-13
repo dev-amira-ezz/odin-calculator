@@ -58,13 +58,30 @@ const handleOperator = (operator) => {
 };
 // Submit
 const handleSubmit = () => {
-  data.result = operate(data.num1, data.num2, data.operator);
-  document.querySelector("#display-number").textContent = data.result;
-  // Reset current data values for chain calculations
-  data.num1 = data.result;
+  const display = document.querySelector("#display-number");
+  // Clicking = before all data entered
+  if (data.num1 === "" || data.num2 === "" || data.operator === "") {
+    display.textContent = "Incomplete data!";
+  } else {
+    data.result = operate(data.num1, data.num2, data.operator);
+    display.textContent = data.result;
+    // Reset current data values for chain calculations
+    data.num1 = data.result;
+    data.num2 = "";
+    data.operator = "";
+    data.result = "";
+  }
+};
+// All Clear
+const handleAllClear = () => {
+  data.num1 = "";
   data.num2 = "";
   data.operator = "";
   data.result = "";
+  document.querySelector("#display-number").textContent = "0";
+  const displayOperator = document.querySelector("#display-operator");
+  displayOperator.textContent = "";
+  displayOperator.style.backgroundColor = "#888";
 };
 // ======= Event Listeners =======
 // Numbers
@@ -79,3 +96,7 @@ document.querySelectorAll(".operator").forEach((operator) => {
 document
   .querySelector("#submit")
   .addEventListener("click", () => handleSubmit());
+// All Clear
+document
+  .querySelector("#all-clear")
+  .addEventListener("click", () => handleAllClear());
