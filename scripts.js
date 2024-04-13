@@ -68,7 +68,7 @@ const handleSubmit = () => {
   if (data.num1 === "" || data.num2 === "" || data.operator === "") {
     display.textContent = "Incomplete data!";
   } else {
-    data.result = operate(data.num1, data.num2, data.operator);
+    data.result = operate(data.num1, data.num2, data.operator).toFixed(10);
     display.textContent = data.result;
     // Reset current data values for chain calculations
     data.num1 = data.result;
