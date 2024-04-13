@@ -1,8 +1,10 @@
 "use strict";
 // ======= Data Variables =======
-let num1 = "";
-let num2 = "";
-let operator = "";
+const data = {
+  num1: "",
+  num2: "",
+  operator: "",
+};
 // ======= Math Functions =======
 // Add
 const add = (num1, num2) => {
@@ -38,17 +40,31 @@ const operate = (num1, num2, operator) => {
   }
 };
 // ======= DOM Handling Functions =======
+// Numbers
 const handleNumber = (number) => {
-     const display = document.querySelector("#display");
-  if (operator === "") {
-    num1 += number.textContent;
-    display.textContent = num1;
+  const display = document.querySelector("#display");
+  if (data.operator === "") {
+    data.num1 += number.textContent;
+    display.textContent = data.num1;
   } else {
-    num2 += number.textContent;
-    display.textContent = num2;
+    data.num2 += number.textContent;
+    display.textContent = data.num2;
   }
 };
+// Operators
+const handleOperator = (operator) => {
+  const displayOperator = document.querySelector("#display-operator");
+  data.operator = operator.textContent;
+  displayOperator.textContent = operator.textContent;
+  displayOperator.style.backgroundColor = "#333";
+  displayOperator.style.color = "#ddd";
+};
 // ======= Event Listeners =======
+// Numbers
 document.querySelectorAll(".number").forEach((number) => {
   number.addEventListener("click", () => handleNumber(number));
+});
+// Operators
+document.querySelectorAll(".operator").forEach((operator) => {
+  operator.addEventListener("click", () => handleOperator(operator));
 });
