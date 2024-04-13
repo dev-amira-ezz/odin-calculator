@@ -34,9 +34,7 @@ const operate = (num1, num2, operator) => {
       return multiply(num1, num2);
     case "/":
       if (num2 === "0") {
-        document.querySelector("#display-operator").textContent = "";
-        document.querySelector("#display-operator").style.backgroundColor =
-          "#888";
+        clearData();
         return "Division by zero!";
       } else {
         return divide(num1, num2);
@@ -48,9 +46,11 @@ const operate = (num1, num2, operator) => {
 const handleNumber = (number) => {
   const display = document.querySelector("#display-number");
   if (display.textContent === "Division by zero!") {
-    handleAllClear();
-  } else if (data.operator === "") {
-    data.num1 += number.textContent;
+    clearData();
+    display.textContent = "0";
+  }
+  if (data.operator === "") {
+    data.num1 += parseFloat(number.textContent);
     display.textContent = data.num1;
   } else {
     data.num2 += number.textContent;
@@ -72,25 +72,29 @@ const handleSubmit = () => {
   if (data.num1 === "" || data.num2 === "" || data.operator === "") {
     display.textContent = "Incomplete data!";
   } else {
-    data.result = operate(data.num1, data.num2, data.operator);
-    display.textContent = data.result;
+    const result = operate(data.num1, data.num2, data.operator);
     // Reset current data values for chain calculations
-    data.num1 = data.result;
-    data.num2 = "";
-    data.operator = "";
-    data.result = "";
+    clearData();
+    data.num1 = result;
+    display.textContent = data.num1;
   }
 };
-// All Clear
-const handleAllClear = () => {
+
+// Clear Data and operator display
+const clearData = () => {
   data.num1 = "";
   data.num2 = "";
   data.operator = "";
   data.result = "";
-  document.querySelector("#display-number").textContent = "0";
   const displayOperator = document.querySelector("#display-operator");
   displayOperator.textContent = "";
   displayOperator.style.backgroundColor = "#888";
+};
+
+// All Clear
+const handleAllClear = () => {
+  clearData();
+  document.querySelector("#display-number").textContent = "0";
 };
 // ======= Event Listeners =======
 // Numbers
