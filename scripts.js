@@ -4,6 +4,7 @@ const data = {
   num1: "",
   num2: "",
   operator: "",
+  result: "",
 };
 // ======= Math Functions =======
 // Add
@@ -57,8 +58,13 @@ const handleOperator = (operator) => {
 };
 // Submit
 const handleSubmit = () => {
-  const result = operate(data.num1, data.num2, data.operator);
-  document.querySelector("#display-number").textContent = result;
+  data.result = operate(data.num1, data.num2, data.operator);
+  document.querySelector("#display-number").textContent = data.result;
+  // Reset current data values for chain calculations
+  data.num1 = data.result;
+  data.num2 = "";
+  data.operator = "";
+  data.result = "";
 };
 // ======= Event Listeners =======
 // Numbers
