@@ -33,7 +33,12 @@ const operate = (num1, num2, operator) => {
     case "*":
       return multiply(num1, num2);
     case "/":
-      return divide(num1, num2);
+      if (num2 === "0") {
+        document.querySelector("#display-number").style.fontSize = "24px";
+        return "Error! Division by zero!";
+      } else {
+        return divide(num1, num2);
+      }
   }
 };
 // ======= DOM Handling Functions =======
