@@ -34,8 +34,10 @@ const operate = (num1, num2, operator) => {
       return multiply(num1, num2);
     case "/":
       if (num2 === "0") {
-        document.querySelector("#display-number").style.fontSize = "24px";
-        return "Error! Division by zero!";
+        document.querySelector("#display-operator").textContent = "";
+        document.querySelector("#display-operator").style.backgroundColor =
+          "#888";
+        return "Division by zero!";
       } else {
         return divide(num1, num2);
       }
@@ -45,7 +47,9 @@ const operate = (num1, num2, operator) => {
 // Numbers
 const handleNumber = (number) => {
   const display = document.querySelector("#display-number");
-  if (data.operator === "") {
+  if (display.textContent === "Division by zero!") {
+    handleAllClear();
+  } else if (data.operator === "") {
     data.num1 += number.textContent;
     display.textContent = data.num1;
   } else {
