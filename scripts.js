@@ -42,7 +42,7 @@ const operate = (num1, num2, operator) => {
 // ======= DOM Handling Functions =======
 // Numbers
 const handleNumber = (number) => {
-  const display = document.querySelector("#display");
+  const display = document.querySelector("#display-number");
   if (data.operator === "") {
     data.num1 += number.textContent;
     display.textContent = data.num1;
