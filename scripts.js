@@ -71,25 +71,41 @@ const compressNumber = (num) => {
     return num;
   }
 };
-// ======= DOM Handling Functions =======
-// ======= Numbers =======
-const handleNumber = (number) => {
+// Number buttons functionality
+const getNumber = (entry) => {
   const display = document.querySelector("#display-number");
   if (display.textContent === "Division by zero!") {
     clearData();
     display.textContent = "0";
   }
   if (data.operator === "" && data.chain === false) {
-    data.num1 += number.textContent;
+    data.num1 += entry;
     display.textContent = compressNumber(data.num1);
   } else if (data.num1 !== "" && data.operator === "" && data.chain === true) {
-    data.num1 = number.textContent;
+    data.num1 = entry;
     data.chain = false;
     display.textContent = compressNumber(data.num1);
   } else if (data.num1 !== "" && data.operator !== "") {
-    data.num2 += number.textContent;
+    data.num2 += entry;
     display.textContent = compressNumber(data.num2);
   }
+};
+// ======= DOM Handling Functions =======
+// ======= Keyboard =======
+const handleKeydown = (e) => {
+  const display = document.querySelector("#display-number");
+  const entry = e.key;
+  if (!isNaN(entry)) {
+    getNumber(entry);
+  } else {
+    display.textContent = "Invalid entry";
+  }
+};
+// ======= Click Events =======
+// ======= Numbers =======
+const handleNumber = (number) => {
+  const entry = number.textContent;
+  getNumber(entry);
 };
 // ======= Operators =======
 const handleOperator = (operator) => {
@@ -180,6 +196,9 @@ const handleClear = () => {
   displayOperator.style.backgroundColor = "#888";
 };
 // ======= Event Listeners =======
+// ======= Keyboard =======
+document.addEventListener("keydown", (e) => handleKeydown(e));
+// ======= Click Events =======
 // Numbers
 document.querySelectorAll(".number").forEach((number) => {
   number.addEventListener("click", () => handleNumber(number));
