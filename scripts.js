@@ -12,6 +12,9 @@ const previousData = {
   operator: "",
   chain: false,
 };
+// ======= DOM Variables =======
+const display = document.querySelector("#display-number");
+const displayOperator = document.querySelector("#display-operator");
 // ======= Math Functions =======
 // Add
 const add = (num1, num2) => {
@@ -50,21 +53,22 @@ const operate = (num1, num2, operator) => {
 // ======= Helper Functions =======
 // Clear Data and operator display. Keep previous data
 const clearData = () => {
+  // Put current data in previousData variable
   previousData.num1 = data.num1;
   previousData.num2 = data.num2;
   previousData.operator = data.operator;
   previousData.chain = data.chain;
+  // Clear current Data variable
   data.num1 = "";
   data.num2 = "";
   data.operator = "";
   data.chain = false;
-  const displayOperator = document.querySelector("#display-operator");
+  // Clear operator display
   displayOperator.textContent = "";
   displayOperator.style.backgroundColor = "#888";
 };
 // Convert large number to exponentiation
 const compressNumber = (num) => {
-  const display = document.querySelector("#display-number");
   if (num.length > 12) {
     return (num = parseFloat(num).toExponential("9"));
   } else {
@@ -73,7 +77,6 @@ const compressNumber = (num) => {
 };
 // Number buttons functionality
 const getNumber = (entry) => {
-  const display = document.querySelector("#display-number");
   if (display.textContent === "Division by zero!") {
     clearData();
     display.textContent = "0";
@@ -93,7 +96,6 @@ const getNumber = (entry) => {
 // ======= DOM Handling Functions =======
 // ======= Keyboard =======
 const handleKeydown = (e) => {
-  const display = document.querySelector("#display-number");
   const entry = e.key;
   if (!isNaN(entry)) {
     getNumber(entry);
@@ -113,7 +115,6 @@ const handleOperator = (operator) => {
     handleSubmit();
     data.operator = operator.textContent;
   } else {
-    const displayOperator = document.querySelector("#display-operator");
     data.operator = operator.textContent;
     displayOperator.textContent = operator.textContent;
     displayOperator.style.backgroundColor = "#333";
@@ -122,7 +123,6 @@ const handleOperator = (operator) => {
 };
 // ======= Submit =======
 const handleSubmit = () => {
-  const display = document.querySelector("#display-number");
   // Clicking = before all data entered
   if (data.num1 === "" || data.num2 === "" || data.operator === "") {
     display.textContent = "Incomplete data!";
@@ -143,7 +143,6 @@ const handleAllClear = () => {
 // ======= Decimal =======
 const handleDecimal = () => {
   let num = "";
-  const display = document.querySelector("#display-number");
   data.operator === "" ? (num = data.num1) : (num = data.num2);
   if (!num.includes(".")) {
     num.length === 0 ? (num += `0${"."}`) : (num += ".");
@@ -154,7 +153,6 @@ const handleDecimal = () => {
 // ======= +/- sign =======
 const handleSign = () => {
   let num = "";
-  const display = document.querySelector("#display-number");
   data.operator === "" ? (num = data.num1) : (num = data.num2);
   const arr = num.split("");
   arr[0] === "-" ? arr.shift() : arr.unshift("-");
@@ -166,7 +164,6 @@ const handleSign = () => {
 // ======= Undo =======
 const handleUndo = () => {
   let num = "";
-  const display = document.querySelector("#display-number");
   data.operator === "" ? (num = data.num1) : (num = data.num2);
   const arr = num.toString().split("");
   if (arr.length >= 1) {
@@ -181,17 +178,18 @@ const handleUndo = () => {
 };
 // ======= Clear =======
 const handleClear = () => {
+  // Retrieve data from previousData variable
   data.num1 = previousData.num1;
   data.num2 = previousData.num2;
   data.operator = previousData.operator;
   data.chain = previousData.chain;
+  // Delete data from previousData variable
   previousData.num1 = "";
   previousData.num2 = "";
   previousData.operator = "";
   previousData.chain = false;
-  const display = document.querySelector("#display-number");
+  // Clear display
   display.textContent = "0";
-  const displayOperator = document.querySelector("#display-operator");
   displayOperator.textContent = "";
   displayOperator.style.backgroundColor = "#888";
 };
