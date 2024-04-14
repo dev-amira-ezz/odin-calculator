@@ -5,6 +5,7 @@ const data = {
   num2: "",
   operator: "",
   result: "",
+  chain: false,
 };
 // ======= Math Functions =======
 // Add
@@ -60,7 +61,7 @@ const compressNumber = (num) => {
   } else {
     display.textContent = num;
   }
-}
+};
 // ======= DOM Handling Functions =======
 // Numbers
 const handleNumber = (number) => {
@@ -69,10 +70,10 @@ const handleNumber = (number) => {
     clearData();
     display.textContent = "0";
   }
-  if (data.operator === "" && data.num1 === "") {
+  if (data.operator === "") {
     data.num1 += number.textContent;
     compressNumber(data.num1);
-  } else if (data.num1 !== "" && data.operator === "") {
+  } else if (data.num1 !== "" && data.operator === "" && data.chain === true) {
     data.num1 = number.textContent;
     compressNumber(data.num1);
   } else {
@@ -104,6 +105,7 @@ const handleSubmit = () => {
     // Reset current data values for chain calculations
     clearData();
     data.num1 = result;
+    data.chain = true;
     compressNumber(data.num1);
     display.textContent = data.num1;
   }
