@@ -49,6 +49,7 @@ const clearData = () => {
   data.num2 = "";
   data.operator = "";
   data.result = "";
+  data.chain = false;
   const displayOperator = document.querySelector("#display-operator");
   displayOperator.textContent = "";
   displayOperator.style.backgroundColor = "#888";
