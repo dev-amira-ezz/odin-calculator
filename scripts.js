@@ -111,14 +111,16 @@ const handleKeydown = (e) => {
   const entry = e.key;
   if (!isNaN(entry)) {
     getNumber(entry);
-  } else if(entry === ".") {
+  } else if (entry === ".") {
     handleDecimal();
-  } else if(entry === "-") {
+  } else if (entry === "-") {
     handleSign();
-  } else if(entry === "+" || entry === '-' || entry === '*' || entry === '/') {
+  } else if (entry === "+" || entry === "-" || entry === "*" || entry === "/") {
     getOperator(entry);
-  } else if(entry === "Enter") {
+  } else if (entry === "Enter") {
     handleSubmit();
+  } else if (entry === "Backspace") {
+    handleUndo();
   } else {
     display.textContent = "Invalid entry";
   }
@@ -131,7 +133,7 @@ const handleNumber = (number) => {
 };
 // ======= Operators =======
 const handleOperator = (operator) => {
-  const entry = number.textContent;
+  const entry = operator.textContent;
   getOperator(entry);
 };
 // ======= Submit =======
