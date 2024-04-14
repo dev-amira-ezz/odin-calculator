@@ -59,11 +59,17 @@ const handleNumber = (number) => {
 };
 // Operators
 const handleOperator = (operator) => {
-  const displayOperator = document.querySelector("#display-operator");
-  data.operator = operator.textContent;
-  displayOperator.textContent = operator.textContent;
-  displayOperator.style.backgroundColor = "#333";
-  displayOperator.style.color = "#ddd";
+  if (data.num1 !== "" && data.num2 !== "") {
+    handleSubmit();
+    data.operator = operator.textContent;
+    console.log(data);
+  } else {
+    const displayOperator = document.querySelector("#display-operator");
+    data.operator = operator.textContent;
+    displayOperator.textContent = operator.textContent;
+    displayOperator.style.backgroundColor = "#333";
+    displayOperator.style.color = "#ddd";
+  }  
 };
 // Submit
 const handleSubmit = () => {
