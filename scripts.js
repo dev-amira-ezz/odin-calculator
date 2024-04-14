@@ -4,7 +4,12 @@ const data = {
   num1: "",
   num2: "",
   operator: "",
-  result: "",
+  chain: false,
+};
+const previousData = {
+  num1: "",
+  num2: "",
+  operator: "",
   chain: false,
 };
 // ======= Math Functions =======
@@ -43,12 +48,15 @@ const operate = (num1, num2, operator) => {
   }
 };
 // ======= Helper Functions =======
-// Clear Data and operator display
+// Clear Data and operator display. Keep previous data
 const clearData = () => {
+  previousData.num1 = data.num1;
+  previousData.num2 = data.num2;
+  previousData.operator = data.operator;
+  previousData.chain = data.chain;
   data.num1 = "";
   data.num2 = "";
   data.operator = "";
-  data.result = "";
   data.chain = false;
   const displayOperator = document.querySelector("#display-operator");
   displayOperator.textContent = "";
@@ -64,7 +72,7 @@ const compressNumber = (num) => {
   }
 };
 // ======= DOM Handling Functions =======
-// Numbers
+// ======= Numbers =======
 const handleNumber = (number) => {
   const display = document.querySelector("#display-number");
   if (display.textContent === "Division by zero!") {
@@ -83,7 +91,7 @@ const handleNumber = (number) => {
     display.textContent = compressNumber(data.num2);
   }
 };
-// Operators
+// ======= Operators =======
 const handleOperator = (operator) => {
   if (data.num1 !== "" && data.num2 !== "") {
     handleSubmit();
@@ -96,7 +104,7 @@ const handleOperator = (operator) => {
     displayOperator.style.color = "#ddd";
   }
 };
-// Submit
+// ======= Submit =======
 const handleSubmit = () => {
   const display = document.querySelector("#display-number");
   // Clicking = before all data entered
@@ -111,12 +119,12 @@ const handleSubmit = () => {
     display.textContent = compressNumber(data.num1.toString());
   }
 };
-// All Clear
+// ======= All Clear =======
 const handleAllClear = () => {
   clearData();
   document.querySelector("#display-number").textContent = "0";
 };
-// Decimal
+// ======= Decimal =======
 const handleDecimal = () => {
   let num = "";
   const display = document.querySelector("#display-number");
@@ -127,7 +135,7 @@ const handleDecimal = () => {
   display.textContent = num;
   data.operator === "" ? (data.num1 = num) : (data.num2 = num);
 };
-// +/- sign
+// ======= +/- sign =======
 const handleSign = () => {
   let num = "";
   const display = document.querySelector("#display-number");
@@ -155,6 +163,22 @@ const handleUndo = () => {
     data.operator === "" ? (data.num1 = num) : (data.num2 = num);
   }
 };
+// ======= Clear =======
+const handleClear = () => {
+  data.num1 = previousData.num1;
+  data.num2 = previousData.num2;
+  data.operator = previousData.operator;
+  data.chain = previousData.chain;
+  previousData.num1 = "";
+  previousData.num2 = "";
+  previousData.operator = "";
+  previousData.chain = false;
+  const display = document.querySelector("#display-number");
+  display.textContent = "0";
+  const displayOperator = document.querySelector("#display-operator");
+  displayOperator.textContent = "";
+  displayOperator.style.backgroundColor = "#888";
+};
 // ======= Event Listeners =======
 // Numbers
 document.querySelectorAll(".number").forEach((number) => {
@@ -174,3 +198,5 @@ document.querySelector("#decimal").addEventListener("click", handleDecimal);
 document.querySelector("#sign").addEventListener("click", handleSign);
 // Undo
 document.querySelector("#undo").addEventListener("click", handleUndo);
+// Clear
+document.querySelector("#clear").addEventListener("click", handleClear);
