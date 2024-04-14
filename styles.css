@@ -9,6 +9,45 @@ h1 {
   line-height: 0;
 }
 
+nav {
+  font-size: 20px;
+  color: #ddd;
+  font-weight: bold;
+  text-align: center;
+  width: 30%;
+  margin: auto;
+  background-color: #333;
+}
+nav a {
+  text-decoration: none;
+  color: #ddd;
+}
+
+nav a:hover {
+  color: lightsteelblue;
+}
+
+table {
+  font-size: 20px;
+  border-collapse: collapse;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+th {
+  background-color: #333;
+  color: #ddd;
+  border: solid #333 3px;
+}
+
+td {
+  width: 180px;
+  border: solid #333 3px;
+  padding: 5px;
+}
+
 #display {
   box-sizing: border-box;
   background-color: #888;
