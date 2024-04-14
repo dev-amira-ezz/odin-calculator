@@ -52,6 +52,15 @@ const clearData = () => {
   displayOperator.textContent = "";
   displayOperator.style.backgroundColor = "#888";
 };
+// Convert large number to exponentiation
+const compressNumber = (num) => {
+  const display = document.querySelector("#display-number");
+  if (num.length > 12) {
+    display.textContent = parseFloat(num).toExponential("9");
+  } else {
+    display.textContent = num;
+  }
+}
 // ======= DOM Handling Functions =======
 // Numbers
 const handleNumber = (number) => {
@@ -60,20 +69,15 @@ const handleNumber = (number) => {
     clearData();
     display.textContent = "0";
   }
-  if (data.operator === "") {
+  if (data.operator === "" && data.num1 === "") {
     data.num1 += number.textContent;
-    if (data.num1.length > 12) {
-      display.textContent = parseFloat(data.num1).toExponential("9");
-    } else {
-      display.textContent = data.num1;
-    }
+    compressNumber(data.num1);
+  } else if (data.num1 !== "" && data.operator === "") {
+    data.num1 = number.textContent;
+    compressNumber(data.num1);
   } else {
     data.num2 += number.textContent;
-    if (data.num2.length > 12) {
-      display.textContent = parseFloat(data.num2).toExponential("9");
-    } else {
-      display.textContent = data.num2;
-    }
+    compressNumber(data.num2);
   }
 };
 // Operators
@@ -99,7 +103,8 @@ const handleSubmit = () => {
     const result = operate(data.num1, data.num2, data.operator);
     // Reset current data values for chain calculations
     clearData();
-    data.num1 = result.toExponential("9");
+    data.num1 = result;
+    compressNumber(data.num1);
     display.textContent = data.num1;
   }
 };
