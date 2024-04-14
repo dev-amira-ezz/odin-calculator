@@ -113,7 +113,7 @@ const handleKeydown = (e) => {
     getNumber(entry);
   } else if (entry === ".") {
     handleDecimal();
-  } else if (entry === "-") {
+  } else if (entry === "n") {
     handleSign();
   } else if (entry === "+" || entry === "-" || entry === "*" || entry === "/") {
     getOperator(entry);
@@ -121,6 +121,10 @@ const handleKeydown = (e) => {
     handleSubmit();
   } else if (entry === "Backspace") {
     handleUndo();
+  } else if (entry === "Delete") {
+    handleClear();
+  } else if (entry === "Escape") {
+    handleAllClear();
   } else {
     display.textContent = "Invalid entry";
   }
