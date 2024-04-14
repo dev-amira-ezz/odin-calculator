@@ -101,6 +101,8 @@ const handleKeydown = (e) => {
     getNumber(entry);
   } else if(entry === ".") {
     handleDecimal();
+  } else if(entry === "-") {
+    handleSign();
   } else {
     display.textContent = "Invalid entry";
   }
