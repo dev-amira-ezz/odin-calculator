@@ -57,9 +57,9 @@ const clearData = () => {
 const compressNumber = (num) => {
   const display = document.querySelector("#display-number");
   if (num.length > 12) {
-    display.textContent = parseFloat(num).toExponential("9");
+    return (num = parseFloat(num).toExponential("9"));
   } else {
-    display.textContent = num;
+    return num;
   }
 };
 // ======= DOM Handling Functions =======
@@ -72,13 +72,13 @@ const handleNumber = (number) => {
   }
   if (data.operator === "") {
     data.num1 += number.textContent;
-    compressNumber(data.num1);
+    display.textContent = compressNumber(data.num1);
   } else if (data.num1 !== "" && data.operator === "" && data.chain === true) {
     data.num1 = number.textContent;
-    compressNumber(data.num1);
+    display.textContent = compressNumber(data.num1);
   } else {
     data.num2 += number.textContent;
-    compressNumber(data.num2);
+    display.textContent = compressNumber(data.num2);
   }
 };
 // Operators
@@ -106,8 +106,7 @@ const handleSubmit = () => {
     clearData();
     data.num1 = result;
     data.chain = true;
-    compressNumber(data.num1);
-    display.textContent = data.num1;
+    display.textContent = compressNumber(parseFloat(data.num1).toFixed(9));
   }
 };
 // All Clear
