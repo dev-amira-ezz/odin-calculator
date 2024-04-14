@@ -117,6 +117,8 @@ const handleKeydown = (e) => {
     handleSign();
   } else if(entry === "+" || entry === '-' || entry === '*' || entry === '/') {
     getOperator(entry);
+  } else if(entry === "Enter") {
+    handleSubmit();
   } else {
     display.textContent = "Invalid entry";
   }
