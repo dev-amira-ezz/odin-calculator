@@ -126,7 +126,16 @@ const handleDecimal = () => {
   display.textContent = num;
   data.operator === "" ? (data.num1 = num) : (data.num2 = num);
 };
-
+const handleSign = () => {
+  let num = "";
+  const display = document.querySelector("#display-number");
+  data.operator === "" ? (num = data.num1) : (num = data.num2);
+  const arr = num.split("");
+  arr[0] === "-" ? arr.shift() : arr.unshift("-");
+  num = arr.join("");
+  display.textContent = num;
+  data.operator === "" ? (data.num1 = num) : (data.num2 = num);
+};
 // ======= Event Listeners =======
 // Numbers
 document.querySelectorAll(".number").forEach((number) => {
@@ -142,3 +151,5 @@ document.querySelector("#submit").addEventListener("click", handleSubmit);
 document.querySelector("#all-clear").addEventListener("click", handleAllClear);
 // Decimal
 document.querySelector("#decimal").addEventListener("click", handleDecimal);
+// Sign
+document.querySelector("#sign").addEventListener("click", handleSign);
