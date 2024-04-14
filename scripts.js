@@ -41,6 +41,17 @@ const operate = (num1, num2, operator) => {
       }
   }
 };
+// ======= Helper Functions =======
+// Clear Data and operator display
+const clearData = () => {
+  data.num1 = "";
+  data.num2 = "";
+  data.operator = "";
+  data.result = "";
+  const displayOperator = document.querySelector("#display-operator");
+  displayOperator.textContent = "";
+  displayOperator.style.backgroundColor = "#888";
+};
 // ======= DOM Handling Functions =======
 // Numbers
 const handleNumber = (number) => {
@@ -50,11 +61,19 @@ const handleNumber = (number) => {
     display.textContent = "0";
   }
   if (data.operator === "") {
-    data.num1 += parseFloat(number.textContent);
-    display.textContent = data.num1;
+    data.num1 += number.textContent;
+    if (data.num1.length > 12) {
+      display.textContent = parseFloat(data.num1).toExponential("9");
+    } else {
+      display.textContent = data.num1;
+    }
   } else {
     data.num2 += number.textContent;
-    display.textContent = data.num2;
+    if (data.num2.length > 12) {
+      display.textContent = parseFloat(data.num2).toExponential("9");
+    } else {
+      display.textContent = data.num2;
+    }
   }
 };
 // Operators
@@ -62,14 +81,13 @@ const handleOperator = (operator) => {
   if (data.num1 !== "" && data.num2 !== "") {
     handleSubmit();
     data.operator = operator.textContent;
-    console.log(data);
   } else {
     const displayOperator = document.querySelector("#display-operator");
     data.operator = operator.textContent;
     displayOperator.textContent = operator.textContent;
     displayOperator.style.backgroundColor = "#333";
     displayOperator.style.color = "#ddd";
-  }  
+  }
 };
 // Submit
 const handleSubmit = () => {
@@ -81,27 +99,27 @@ const handleSubmit = () => {
     const result = operate(data.num1, data.num2, data.operator);
     // Reset current data values for chain calculations
     clearData();
-    data.num1 = result;
+    data.num1 = result.toExponential("9");
     display.textContent = data.num1;
   }
 };
-
-// Clear Data and operator display
-const clearData = () => {
-  data.num1 = "";
-  data.num2 = "";
-  data.operator = "";
-  data.result = "";
-  const displayOperator = document.querySelector("#display-operator");
-  displayOperator.textContent = "";
-  displayOperator.style.backgroundColor = "#888";
-};
-
 // All Clear
 const handleAllClear = () => {
   clearData();
   document.querySelector("#display-number").textContent = "0";
 };
+// Decimal
+const handleDecimal = () => {
+  let num = "";
+  const display = document.querySelector("#display-number");
+  data.operator === "" ? (num = data.num1) : (num = data.num2);
+  if (!num.includes(".")) {
+    num.length === 0 ? (num += `0${"."}`) : (num += ".");
+  }
+  display.textContent = num;
+  data.operator === "" ? (data.num1 = num) : (data.num2 = num);
+};
+
 // ======= Event Listeners =======
 // Numbers
 document.querySelectorAll(".number").forEach((number) => {
@@ -112,10 +130,8 @@ document.querySelectorAll(".operator").forEach((operator) => {
   operator.addEventListener("click", () => handleOperator(operator));
 });
 // Submit
-document
-  .querySelector("#submit")
-  .addEventListener("click", () => handleSubmit());
+document.querySelector("#submit").addEventListener("click", handleSubmit);
 // All Clear
-document
-  .querySelector("#all-clear")
-  .addEventListener("click", () => handleAllClear());
+document.querySelector("#all-clear").addEventListener("click", handleAllClear);
+// Decimal
+document.querySelector("#decimal").addEventListener("click", handleDecimal);

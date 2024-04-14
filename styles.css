@@ -12,7 +12,7 @@ h1 {
 #display {
   box-sizing: border-box;
   background-color: #888;
-  width: 97%;
+  width: 98%;
   height: 100px;
   padding: 10px;
   border: double #333 10px;
@@ -22,6 +22,10 @@ h1 {
   display: flex;
   justify-content: right;
   margin-top: 5px;
+}
+
+#display-number {
+  text-overflow: ellipsis;
 }
 
 #display-operator {
