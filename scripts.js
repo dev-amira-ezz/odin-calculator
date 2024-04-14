@@ -126,6 +126,7 @@ const handleDecimal = () => {
   display.textContent = num;
   data.operator === "" ? (data.num1 = num) : (data.num2 = num);
 };
+// +/- sign
 const handleSign = () => {
   let num = "";
   const display = document.querySelector("#display-number");
@@ -135,6 +136,23 @@ const handleSign = () => {
   num = arr.join("");
   display.textContent = num;
   data.operator === "" ? (data.num1 = num) : (data.num2 = num);
+};
+// Undo
+// ======= Undo =======
+const handleUndo = () => {
+  let num = "";
+  const display = document.querySelector("#display-number");
+  data.operator === "" ? (num = data.num1) : (num = data.num2);
+  const arr = num.toString().split("");
+  if (arr.length >= 1) {
+    arr.pop();
+    num = arr.join("");
+    display.textContent = num;
+    data.operator === "" ? (data.num1 = num) : (data.num2 = num);
+  } else {
+    display.textContent = "Entry deleted";
+    data.operator === "" ? (data.num1 = num) : (data.num2 = num);
+  }
 };
 // ======= Event Listeners =======
 // Numbers
@@ -153,3 +171,5 @@ document.querySelector("#all-clear").addEventListener("click", handleAllClear);
 document.querySelector("#decimal").addEventListener("click", handleDecimal);
 // Sign
 document.querySelector("#sign").addEventListener("click", handleSign);
+// Undo
+document.querySelector("#undo").addEventListener("click", handleUndo);
