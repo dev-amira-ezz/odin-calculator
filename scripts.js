@@ -93,6 +93,18 @@ const getNumber = (entry) => {
     display.textContent = compressNumber(data.num2);
   }
 };
+// Operator buttons functionality
+const getOperator = (entry) => {
+  if (data.num1 !== "" && data.num2 !== "") {
+    handleSubmit();
+    data.operator = entry;
+  } else {
+    data.operator = entry;
+    displayOperator.textContent = entry;
+    displayOperator.style.backgroundColor = "#333";
+    displayOperator.style.color = "#ddd";
+  }
+};
 // ======= DOM Handling Functions =======
 // ======= Keyboard =======
 const handleKeydown = (e) => {
@@ -103,6 +115,8 @@ const handleKeydown = (e) => {
     handleDecimal();
   } else if(entry === "-") {
     handleSign();
+  } else if(entry === "+" || entry === '-' || entry === '*' || entry === '/') {
+    getOperator(entry);
   } else {
     display.textContent = "Invalid entry";
   }
@@ -115,15 +129,8 @@ const handleNumber = (number) => {
 };
 // ======= Operators =======
 const handleOperator = (operator) => {
-  if (data.num1 !== "" && data.num2 !== "") {
-    handleSubmit();
-    data.operator = operator.textContent;
-  } else {
-    data.operator = operator.textContent;
-    displayOperator.textContent = operator.textContent;
-    displayOperator.style.backgroundColor = "#333";
-    displayOperator.style.color = "#ddd";
-  }
+  const entry = number.textContent;
+  getOperator(entry);
 };
 // ======= Submit =======
 const handleSubmit = () => {
