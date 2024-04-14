@@ -70,13 +70,14 @@ const handleNumber = (number) => {
     clearData();
     display.textContent = "0";
   }
-  if (data.operator === "") {
+  if (data.operator === "" && data.chain === false) {
     data.num1 += number.textContent;
     display.textContent = compressNumber(data.num1);
   } else if (data.num1 !== "" && data.operator === "" && data.chain === true) {
     data.num1 = number.textContent;
+    data.chain = false;
     display.textContent = compressNumber(data.num1);
-  } else {
+  } else if (data.num1 !== "" && data.operator !== "") {
     data.num2 += number.textContent;
     display.textContent = compressNumber(data.num2);
   }
@@ -106,7 +107,7 @@ const handleSubmit = () => {
     clearData();
     data.num1 = result;
     data.chain = true;
-    display.textContent = compressNumber(parseFloat(data.num1).toFixed(9));
+    display.textContent = compressNumber(data.num1.toString());
   }
 };
 // All Clear
