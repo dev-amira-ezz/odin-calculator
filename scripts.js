@@ -99,6 +99,8 @@ const handleKeydown = (e) => {
   const entry = e.key;
   if (!isNaN(entry)) {
     getNumber(entry);
+  } else if(entry === ".") {
+    handleDecimal();
   } else {
     display.textContent = "Invalid entry";
   }
